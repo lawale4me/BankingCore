@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+
+    <ui:define name="title">HOME PAGE</ui:define>
+    <ui:define name="content">                             
+
+
+
+        <p:spacer />
+        <h:form id="form">                
+
+
+
+            <p:calendar widgetVar="var1" id="dtFrom" value="#{criticisedMBean.startdate}"
+                        pattern="yyyy-MM-dd" mode="popup" showOn="button" >
+                
+            </p:calendar>
+
+            <p:calendar widgetVar="var2" id="dtTo" value="#{criticisedMBean.enddate}"
+                        pattern="yyyy-MM-dd" mode="popup" showOn="button" >
+                
+            </p:calendar>
+            <p:commandButton id="btnFilter" value="Filter" update="dTable"  action="#{criticisedMBean.search()}" ajax="true" />
+
+
+            <p:dataTable var="loanapplication" value="#{criticisedMBean.critisedAsset}" widgetVar="loansTable"
+                         selection="#{criticisedMBean.selectedAsset}" selectionMode="single" 
+                         scrollable="true" editable="true" id="dTable"
+                         rowKey="#{loanapplication.loanid}" rows="10"  filteredValue="#{criticisedMBean.filteredAssets}" >                                                                                                         
+
+                <p:ajax event="rowSelect"  /> 
+                <f:facet name="header">
+                    Criticised Assets
+                </f:facet>
+
+
+
+                <p:column filterBy="#{loanapplication.referenceno}">
+                    <f:facet name="header">
+                        <h:outputText value="Reference No"  />
+                    </f:facet>
+                    <h:outputText value="#{loanapplication.referenceno}"   />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="FullName" />
+                    </f:facet>
+                    <h:outputText value="#{loanapplication.surname} #{loanapplication.otherNames}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Amount" />
+                    </f:facet>
+                    <h:outputText value="#{loanapplication.approvedAmount}" />
+                </p:column>
+
+                <p:column  filterBy="#{loanapplication.approvedby}">
+                    <f:facet name="header">
+                        <h:outputText value="Approved By" />
+                    </f:facet>
+                    <h:outputText value="#{loanapplication.approvedby}" />
+                </p:column>               
+                
+
+            </p:dataTable>
+
+            <p:dialog header="Loan Details" widgetVar="casesDialog" resizable="false"
+                      width="500" showEffect="clip" hideEffect="fold">
+
+
+                <h:panelGrid id="casesDetail" columns="2" cellpadding="4">
+                    <f:facet name="header">
+
+                    </f:facet>
+                    <h:outputText value="Email:" />
+                    <h:outputText value="#{criticisedMBean.selectedAsset.email}" />
+
+                    <h:outputText value="Annual Salary:" />
+                    <h:outputText value="#{criticisedMBean.selectedAsset.annualSalary}" />
+
+                    <h:outputText value="employer:" />
+                    <h:outputText value="#{criticisedMBean.selectedAsset.employer}" />
+
+                    <h:outputText value="EmployerAddress:" />
+                    <h:outputText value="#{criticisedMBean.selectedAsset.employerAddress}" />
+
+                    <h:outputText value="Grade:" />
+                    <h:outputText value="#{criticisedMBean.selectedAsset.grade}" />
+
+                    <h:outputText value="Office Email:" />
+                    <h:outputText value="#{criticisedMBean.selectedAsset.officeEmail}" />
+
+                    <h:outputText value="Bank Name:" />
+                    <h:outputText value="#{criticisedMBean.selectedAsset.bankName}" />
+
+                    <h:outputText value="Bank Account No:" />
+                    <h:outputText value="#{criticisedMBean.selectedAsset.bankAccountNo}" />
+
+                    <h:outputText value="Total Existing Loan:" />
+                    <h:outputText value="#{criticisedMBean.selectedAsset.totalExistingLoan}" />
+
+                    <h:outputText value="Date of Birth:" />
+                    <h:outputText value="#{criticisedMBean.selectedAsset.dob}" />
+
+                    <h:outputText value="Department" />
+                    <h:outputText value="#{criticisedMBean.selectedAsset.dept}" />
+
+
+                </h:panelGrid>
+            </p:dialog>                      
+
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

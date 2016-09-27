@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<ui:composition 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/secured/layout.xhtml"
+                >
+
+    <ui:define name="title">HOME PAGE</ui:define>
+    <ui:define name="content">             
+
+        <!--<p:chart type="bar" model="{casesMBean.barModel}" style="height:200px"/>-->
+
+        <h:form id="form">                                                   
+
+            <p:dataTable var="loan" value="#{approvedLoanMBean.loans}" widgetVar="loansTable"
+                         selection="#{approvedLoanMBean.selectedLoan}" selectionMode="single" 
+                         scrollable="true"  paginator="true"
+                         rowKey="#{loan.loanid}" rows="10"  filteredValue="#{approvedLoanMBean.filteredLoans}" >                                                                                                         
+                <f:facet name="header">
+                    Approved Loan 
+                </f:facet>
+
+                <p:column filterBy="#{loan.referenceno}">
+                    <f:facet name="header">
+                        <h:outputText value="Reference No" />
+                    </f:facet>
+                    <h:outputText value="#{loan.referenceno}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Request Date" />
+                    </f:facet>
+                    <h:outputText value="#{loan.requestdate}" >
+                    <f:convertDateTime pattern="MM-dd-yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Full Name" />
+                    </f:facet>
+                    <h:outputText value="#{loan.surname} #{loan.otherNames}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Tenor" />
+                    </f:facet>
+                    <h:outputText value="#{loan.tenor}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="ApprovedAmount" />
+                    </f:facet>
+                    <h:outputText value="#{loan.approvedAmount}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Loan Amount" />
+                    </f:facet>
+                    <h:outputText value="#{loan.loanAmount}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Authorize" />
+                    </f:facet>
+                    <p:button outcome="authorizeloan" value="authorize" icon="ui-icon-star">
+                        <f:param name="referenceno" value="#{loan.referenceno}" />
+                        <f:param name="name" value="#{loan.surname} #{loan.otherNames}" />
+                        <f:param name="loanAmount" value="#{loan.loanAmount} " />
+                        <f:param name="loanType" value="#{loan.loanType} " />
+                        <f:param name="approvedAmount" value="#{loan.approvedAmount} " />
+                        <f:param name="comment" value="#{loan.comment} " />
+                    </p:button>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Cancel" />
+                    </f:facet>
+                    <p:button outcome="cancelloan" value="Reject" icon="ui-icon-star">
+                        <f:param name="referenceno" value="#{loan.referenceno}" />
+                        <f:param name="name" value="#{loan.surname} #{loan.otherNames}" />
+                        <f:param name="loanAmount" value="#{loan.loanAmount} " />
+                        <f:param name="loanType" value="#{loan.loanType} " />
+                    </p:button>
+                    
+                    <p:button outcome="addinstallment" value="Installment" icon="ui-icon-star">
+                        <f:param name="referenceno" value="#{loan.referenceno}" />
+                        <f:param name="name" value="#{loan.surname} #{loan.otherNames}" />
+                        <f:param name="loanAmount" value="#{loan.loanAmount} " />
+                        <f:param name="loanType" value="#{loan.loanType} " />
+                    </p:button>
+                </p:column>                
+
+                <f:facet name="footer">
+                    <p:commandButton id="footercmbtn" value="View" image="ui-icon ui-icon-search"                                                 
+                                     update=":form:casesDetail" oncomplete="PF('casesDialog').show()"/>                                         
+                </f:facet>
+
+            </p:dataTable>
+
+            <p:dialog header="Loan Details" widgetVar="casesDialog" resizable="false"
+                      width="500" showEffect="clip" hideEffect="fold">
+
+
+                <h:panelGrid id="casesDetail" columns="2" cellpadding="4">
+                    <f:facet name="header">
+
+                    </f:facet>
+                    <h:outputText value="Email:" />
+                    <h:outputText value="#{approvedLoanMBean.selectedLoan.email}" />
+
+                    <h:outputText value="Annual Salary:" />
+                    <h:outputText value="#{approvedLoanMBean.selectedLoan.annualSalary}" />
+
+                    <h:outputText value="employer:" />
+                    <h:outputText value="#{approvedLoanMBean.selectedLoan.employer}" />
+
+                    <h:outputText value="EmployerAddress:" />
+                    <h:outputText value="#{approvedLoanMBean.selectedLoan.employerAddress}" />
+
+                    <h:outputText value="Grade:" />
+                    <h:outputText value="#{approvedLoanMBean.selectedLoan.grade}" />
+
+                    <h:outputText value="Office Email:" />
+                    <h:outputText value="#{approvedLoanMBean.selectedLoan.officeEmail}" />
+
+                    <h:outputText value="Bank Name:" />
+                    <h:outputText value="#{approvedLoanMBean.selectedLoan.bankName}" />
+
+                    <h:outputText value="Bank Account No:" />
+                    <h:outputText value="#{approvedLoanMBean.selectedLoan.bankAccountNo}" />
+
+                    <h:outputText value="Total Existing Loan:" />
+                    <h:outputText value="#{approvedLoanMBean.selectedLoan.totalExistingLoan}" />
+
+                    <h:outputText value="Date of Birth:" />
+                    <h:outputText value="#{approvedLoanMBean.selectedLoan.dob}" />
+
+                    <h:outputText value="Department" />
+                    <h:outputText value="#{approvedLoanMBean.selectedLoan.dept}" />
+
+                </h:panelGrid>
+            </p:dialog>
+
+            <!--ADD INSTALLMENT DIALOG-->
+            
+            </h:form>
+    </ui:define>
+</ui:composition>

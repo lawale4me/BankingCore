@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <ui:define name="title">Customers</ui:define>                  
+
+    <ui:define name="content">    
+        <h:form id="formcust">
+            <p:growl id="messages" showDetail="true"/>
+            <p:panel header="Customers" style="width: 1000px;"> 
+
+                <p:spacer height="30px;"/>
+                <p:dataTable value="#{customerMBean.customers}" var="cust" 
+                             widgetVar="50" style="width: 1000px;" editable="true"
+                             rowKey="#{cust.accountid}" rows="10" paginator="true"  >
+
+                    <p:column filterBy="#{cust.accountname}">
+                        <f:facet name="header">  
+                            <h:outputText value="Account Name" />  
+                        </f:facet>                                                      
+                        <h:outputText  value="#{cust.accountname}"  />                                                          
+                    </p:column>
+
+
+                    <p:column filterBy="#{cust.accountphone}">
+                        <f:facet name="header">  
+                            <h:outputText value="Phone" />  
+                        </f:facet>                                                      
+                        <h:outputText  value="#{cust.accountphone}"  />                                                          
+                    </p:column>
+
+                    <p:column filterBy="#{cust.accountemail}">
+                        <f:facet name="header">  
+                            <h:outputText value="Email" />  
+                        </f:facet>                                                      
+                        <h:outputText  value="#{cust.accountemail}"  />                                                          
+                    </p:column>
+
+                    <p:column filterBy="#{cust.dob}" sortBy="#{cust.dob}" >
+                        <f:facet name="header">  
+                            <h:outputText value="Date of Birth" />  
+                        </f:facet>                                                      
+                        <h:outputText  value="#{cust.dob}"  >
+                        <f:convertDateTime pattern="MM-dd-yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column filterBy="#{cust.totalProfit}" sortBy="#{cust.totalProfit}" >
+                        <f:facet name="header">  
+                            <h:outputText value="Total Profit" />  
+                        </f:facet>                                                      
+                        <h:outputText  value="#{cust.totalProfit}"  />                                                          
+                    </p:column>
+                    
+                    <p:column filterBy="#{cust.noOfLoans}" sortBy="#{cust.noOfLoans}" >
+                        <f:facet name="header">  
+                            <h:outputText value="No Of Loans" />  
+                        </f:facet>                                                      
+                        <h:outputText  value="#{cust.noOfLoans}"  />                                                          
+                    </p:column>
+
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

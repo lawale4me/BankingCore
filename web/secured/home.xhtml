@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+
+    <ui:define name="title">HOME PAGE</ui:define>
+    <ui:define name="content">                             
+
+        <h:form id="form">                                                   
+
+            <p:dataTable var="loan" value="#{loanMBean.loans}" widgetVar="loansTable"
+                         selection="#{loanMBean.selectedLoan}" selectionMode="single" 
+                         scrollable="true"  paginator="true"
+                         rowKey="#{loan.loanid}" rows="10"  
+                         filteredValue="#{loanMBean.filteredLoans}" >                                                                                                         
+
+                <p:ajax event="rowSelect"  /> 
+                <f:facet name="header">
+                    Loan Requests
+                </f:facet>
+
+                <p:column filterBy="#{loan.referenceno}">
+                    <f:facet name="header">
+                        <h:outputText value="Reference No"  />
+                    </f:facet>
+                    <h:outputText value="#{loan.referenceno}"   />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Request Date" />
+                    </f:facet>
+                    <h:outputText value="#{loan.requestdate}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Full Name" />
+                    </f:facet>
+                    <h:outputText value="#{loan.surname} #{loan.otherNames}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Tenor" />
+                    </f:facet>
+                    <h:outputText value="#{loan.tenor}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Loan Amount" />
+                    </f:facet>
+                    <h:outputText value="#{loan.loanAmount}" />
+                </p:column>               
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Approval" />
+                    </f:facet>
+                    <p:button outcome="approveloan" value="approve" icon="ui-icon-star">
+                        <f:param name="referenceno" value="#{loan.referenceno}" />
+                        <f:param name="name" value="#{loan.surname} #{loan.otherNames}" />
+                        <f:param name="loanAmount" value="#{loan.loanAmount} " />
+                        <f:param name="loanType" value="#{loan.loanType} " />
+                    </p:button>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Cancel" />
+                    </f:facet>
+                    <p:button outcome="cancelloan" value="Reject" icon="ui-icon-star">
+                        <f:param name="referenceno" value="#{loan.referenceno}" />
+                        <f:param name="name" value="#{loan.surname} #{loan.otherNames}" />
+                        <f:param name="loanAmount" value="#{loan.loanAmount} " />
+                        <f:param name="loanType" value="#{loan.loanType} " />
+                    </p:button>
+                </p:column>
+
+
+                <f:facet name="footer">
+                    <p:commandButton id="footercmbtn" value="View" image="ui-icon ui-icon-search"                                                 
+                                     update=":form:casesDetail"    oncomplete="PF('casesDialog').show()"/>                                       
+                </f:facet>
+
+            </p:dataTable>
+
+            <p:dialog header="Loan Details" widgetVar="casesDialog" resizable="false"
+                      width="500" showEffect="clip" hideEffect="fold">
+
+
+                <h:panelGrid id="casesDetail" columns="2" cellpadding="4">
+                    <f:facet name="header">
+
+                    </f:facet>
+                    <h:outputText value="Email:" />
+                    <h:outputText value="#{loanMBean.selectedLoan.email}" />
+
+                    <h:outputText value="Annual Salary:" />
+                    <h:outputText value="#{loanMBean.selectedLoan.annualSalary}" />
+
+                    <h:outputText value="employer:" />
+                    <h:outputText value="#{loanMBean.selectedLoan.employer}" />
+
+                    <h:outputText value="EmployerAddress:" />
+                    <h:outputText value="#{loanMBean.selectedLoan.employerAddress}" />
+
+                    <h:outputText value="Grade:" />
+                    <h:outputText value="#{loanMBean.selectedLoan.grade}" />
+
+                    <h:outputText value="Office Email:" />
+                    <h:outputText value="#{loanMBean.selectedLoan.officeEmail}" />
+
+                    <h:outputText value="Bank Name:" />
+                    <h:outputText value="#{loanMBean.selectedLoan.bankName}" />
+
+                    <h:outputText value="Bank Account No:" />
+                    <h:outputText value="#{loanMBean.selectedLoan.bankAccountNo}" />
+
+                    <h:outputText value="Total Existing Loan:" />
+                    <h:outputText value="#{loanMBean.selectedLoan.totalExistingLoan}" />
+
+                    <h:outputText value="Date of Birth:" />
+                    <h:outputText value="#{loanMBean.selectedLoan.dob}" />
+
+                    <h:outputText value="Department" />
+                    <h:outputText value="#{loanMBean.selectedLoan.dept}" />
+
+                    <h:button id="lnkHidden" value=" View ID card" outcome="viewresource">
+                        <f:param name="idCardURL" value="#{loanMBean.selectedLoan.idCard}" />
+                    </h:button>
+                    
+                    <p:commandLink id="sidlink" actionListener="#{loanMBean.disburseLoan()}" oncomplete="window.open('viewresource', 'newtab', 'width=300, height=250');">  
+                        <f:param name="idCardURL" value="#{loanMBean.selectedLoan.idCard}" />
+                        <h:outputText value="#{loanMBean.selectedLoan.bankStatement}" styleClass="txtlink" />
+                    </p:commandLink>
+
+
+                </h:panelGrid>
+            </p:dialog>
+            
+            
+            
+            
+            
+                              
+            
+            
+            
+
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                >
+
+    <ui:define name="title">Profit And Loss</ui:define>
+    <ui:define name="content">             
+        <h:form id="form">
+
+            <p:calendar widgetVar="var1" id="dtFrom" value="#{pLMBean.startdate}"
+                        pattern="yyyy-MM-dd" mode="popup" showOn="button" >
+
+            </p:calendar>
+
+            <p:calendar widgetVar="var2" id="dtTo" value="#{pLMBean.enddate}"
+                        pattern="yyyy-MM-dd" mode="popup" showOn="button" >
+
+            </p:calendar>
+            <p:commandButton id="btnFilter" value="Filter" update="tTable,eTable,dTable"  action="#{pLMBean.search()}" ajax="true" />
+
+            <p:spacer/>
+             
+            <p:dataTable var="rep" value="#{pLMBean.pep}" widgetVar="totalTable"                              
+                          id="tTable"
+                         
+                         scrollable="true"> 
+  
+                
+                <f:facet name="header">
+                    Profit And Loss
+                </f:facet>                        
+
+                <p:column  headerText="Total Expenses" >                                                   
+                    <h:outputText value="#{pLMBean.pl.totalExpenses}"  /> 
+                </p:column>
+                
+                <p:column  headerText="Total Principal">
+                    <h:outputText value="#{pLMBean.pl.totalPrincipal}"  />
+                </p:column>
+                
+                <p:column  headerText="Total Interest" >
+                    <h:outputText value="#{pLMBean.pl.totalInterest}"  />
+                </p:column>
+                
+                <p:column  headerText="Total Profit" >                                                   
+                    <h:outputText value="#{pLMBean.pl.totalProfit}"  />
+                </p:column>                                
+                
+            </p:dataTable>
+            
+            
+            <p:dataTable var="rep" value="#{pLMBean.pl.repayments}" widgetVar="repTable"                              
+                         rowKey="#{rep.loanId}" rows="10" id="dTable"
+                         filteredValue="#{pLMBean.filteredrep}"
+                         scrollable="true"> 
+  
+                
+                <f:facet name="header">
+                    Repayments
+                </f:facet>                        
+
+                <p:column filterBy="#{rep.customerName}" headerText="Name" footerText="contains" filterMatchMode="contains">                               
+                    <h:outputText value="#{rep.customerName}"  />
+                </p:column>
+                
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Amount" />
+                    </f:facet>
+                    <h:outputText value="#{rep.amount}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="CustomerType" />
+                    </f:facet>
+                    <h:outputText value="#{rep.customerType}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Interest" />
+                    </f:facet>
+                    <h:outputText value="#{rep.interest}" />
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Principal" />
+                    </f:facet>
+                    <h:outputText value="#{rep.principal}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Profit" />
+                    </f:facet>
+                    <h:outputText value="#{rep.interest}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Status" />
+                    </f:facet>
+                    <h:outputText value="#{rep.status}" />
+                </p:column>
+                
+            </p:dataTable>     
+            
+            <p:spacer/>
+            <p:dataTable var="exp" value="#{pLMBean.pl.expenses}" widgetVar="expTable"                              
+                         rowKey="#{exp.expenseId}" rows="10" id="eTable"
+                         filteredValue="#{pLMBean.filteredexp}"
+                         scrollable="true"     >                                                         
+
+                <f:facet name="header">
+                    Expenses
+                </f:facet>
+                <p:column filterBy="#{exp.expenseDate}" headerText="Date" footerText="contains" filterMatchMode="contains">                               
+                    <h:outputText value="#{exp.expenseDate}"  />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Amount" />
+                    </f:facet>
+                    <h:outputText value="#{exp.amount}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="User" />
+                    </f:facet>
+                    <h:outputText value="#{exp.appuser}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Purpose" />
+                    </f:facet>
+                    <h:outputText value="#{exp.purpose}" />
+                </p:column>
+                
+            </p:dataTable>     
+
+        </h:form>
+    </ui:define>
+</ui:composition>
+

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <ui:define name="title">Expenses</ui:define>                  
+    
+    <ui:define name="content">    
+        <h:form id="form1">
+            <p:growl id="messages" showDetail="true"/>
+            <p:panel header="Expense" style="width: 1000px;"> 
+                <p:panelGrid columns="2">                    
+                    <h:outputLabel for="amount" value="Amount " />
+                    <p:inputText value="#{expenseMBean.amount}" required="true"/>
+                    <h:outputLabel for="purpose" value="Purpose " />                                                   
+                    <p:inputText value="#{expenseMBean.purpose}" required="true"/>                    
+                    <f:facet name="footer">
+                        <h:commandButton value="Add Expense" action="#{expenseMBean.addAction()}"/>
+                    </f:facet>
+                </p:panelGrid>
+                <p:spacer height="30px;"/>
+                <p:dataTable value="#{expenseMBean.expenses}" var="exp" 
+                             widgetVar="50" style="width: 1000px;" editable="true"
+                             rowKey="#{exp.expenseId}" rows="10" paginator="true"  >
+                  
+                    <p:ajax event="rowEdit" listener="#{expenseMBean.onEdit}" update=":form1:messages" />  
+                    <p:ajax event="rowEditCancel" listener="#{expenseMBean.onCancel}" update=":form1:messages" /> 
+                    <p:column filterBy="#{exp.expenseDate}">
+                        <f:facet name="header">  
+                            <h:outputText value="Expense Date" />  
+                        </f:facet>                                                      
+                        <h:outputText  value="#{exp.expenseDate}"  >
+                        <f:convertDateTime pattern="MM-dd-yyyy" />
+                        </h:outputText>                                                          
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Amount" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{exp.amount}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{exp.amount}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>
+
+                     <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Purpose" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{exp.purpose}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{exp.purpose}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Admin user" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{exp.appuser}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{exp.appuser}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>                             
+
+                    <p:column headerText="Options" style="width:50px">  
+                        <p:rowEditor />  
+                    </p:column> 
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

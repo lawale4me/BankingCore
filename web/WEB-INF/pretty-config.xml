@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<pretty-config xmlns="http://ocpsoft.org/prettyfaces/3.3.3" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://ocpsoft.org/prettyfaces/3.3.3  http://ocpsoft.org/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.3.xsd">
+
+    <url-mapping id="disburseloan">
+        <pattern value="/disburseloan" />
+        <view-id value="/faces/secured/disburseloan.xhtml"/>        
+    </url-mapping>
+   
+   <url-mapping id="customers">
+        <pattern value="/customers" />
+        <view-id value="/faces/secured/customers.xhtml"/>        
+    </url-mapping>
+   <url-mapping id="nplloans">
+        <pattern value="/nplloans" />
+        <view-id value="/faces/secured/nplloans.xhtml"/>        
+    </url-mapping>
+   <url-mapping id="criticisedasset">
+        <pattern value="/criticisedasset" />
+        <view-id value="/faces/secured/criticisedasset.xhtml"/>        
+    </url-mapping>
+   <url-mapping id="expensepage">
+        <pattern value="/expensepage" />
+        <view-id value="/faces/secured/expensepage.xhtml"/>        
+    </url-mapping>
+   
+     <url-mapping id="chequemanagement">
+        <pattern value="/chequemanagement" />
+        <view-id value="/faces/secured/chequemanagement.xhtml"/>        
+    </url-mapping>
+    
+     <url-mapping id="profitandloss">
+        <pattern value="/profitandloss" />
+        <view-id value="/faces/secured/profitandloss.xhtml"/>        
+    </url-mapping>
+    
+      
+    <url-mapping id="generalreports">
+        <pattern value="/generalreports" />
+        <view-id value="/faces/secured/generalreports.xhtml"/>        
+    </url-mapping>
+    
+    
+    <url-mapping id="addinstallment">
+        <pattern value="/addinstallment" />
+        <view-id value="/faces/secured/addinstallment.xhtml"/>        
+    </url-mapping>
+    
+    
+    <url-mapping id="authorizeloan">
+        <pattern value="/authorizeloan" />
+        <view-id value="/faces/secured/authorizeloan.xhtml"/>        
+    </url-mapping>
+    
+    <url-mapping id="approveloan">
+        <pattern value="/approveloan" />
+        <view-id value="/faces/secured/approveloan.xhtml"/>        
+    </url-mapping>
+    <url-mapping id="canceledloans">
+        <pattern value="/canceledloans" />
+        <view-id value="/faces/secured/canceledloans.xhtml"/>        
+    </url-mapping>
+    <url-mapping id="NewAccount">
+        <pattern value="/NewAccount" />
+        <view-id value="/faces/secured/NewAccount.xhtml"/>        
+    </url-mapping>
+    <url-mapping id="approveloan">
+        <pattern value="/approveloan" />
+        <view-id value="/faces/secured/approveloan.xhtml"/>        
+    </url-mapping>
+    <url-mapping id="newuser">
+        <pattern value="/newuser" />
+        <view-id value="/faces/secured/newuser.xhtml"/>        
+    </url-mapping>
+    <url-mapping id="authorizedloans">
+        <pattern value="/authorizedloans" />
+        <view-id value="/faces/secured/authorizedloans.xhtml"/>        
+    </url-mapping>
+     <url-mapping id="approvedloans">
+        <pattern value="/approvedloans" />
+        <view-id value="/faces/secured/approvedloans.xhtml"/>        
+    </url-mapping>
+    <url-mapping id="returnedcheques">
+        <pattern value="/returnedcheques" />
+        <view-id value="/faces/secured/returnedcheques.xhtml"/>        
+    </url-mapping>   
+    <url-mapping id="disbursedloans">
+        <pattern value="/disbursedloans" />
+        <view-id value="/faces/secured/disbursedloans.xhtml"/>        
+    </url-mapping>   
+    <url-mapping id="home">
+        <pattern value="/home" />
+        <view-id value="/faces/secured/home.xhtml"/>      
+    </url-mapping> 
+    <url-mapping id="customers">
+        <pattern value="/customers" />
+        <view-id value="/faces/secured/customers.xhtml"/>      
+    </url-mapping> 
+    <url-mapping id="viewresource">
+        <pattern value="/viewresource" />
+        <view-id value="/faces/secured/viewresource.xhtml"/>      
+    </url-mapping>
+    <url-mapping id="layout">
+        <pattern value="/layout" />
+        <view-id value="/faces/secured/layout.xhtml"/>      
+    </url-mapping>
+    <url-mapping id="testing">
+        <pattern value="/testing" />
+        <view-id value="/faces/secured/testing.xhtml"/>      
+    </url-mapping>
+    <url-mapping id="createuser">
+        <pattern value="/createuser" />
+        <view-id value="/faces/secured/createuser.xhtml"/>        
+    </url-mapping> 
+    <url-mapping id="viewusers">
+        <pattern value="/viewusers" />
+        <view-id value="/faces/secured/viewusers.xhtml"/>        
+    </url-mapping> 
+     <url-mapping id="auditreport">
+        <pattern value="/auditreport" />
+        <view-id value="/faces/secured/auditreport.xhtml"/>      
+    </url-mapping>
+</pretty-config>

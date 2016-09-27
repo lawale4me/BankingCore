@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                >
+     
+      <ui:define name="title">Loan Authorization</ui:define>
+    <ui:define name="content">            
+                
+                
+                <h:form id="approvalForm">
+                        <p:growl id="messages" showDetail="true" />
+                        <table width="40%" align="center" style="margin: 60px 0px 0px 120px">
+                            <tr>
+                                <td id="top" align="center">
+                            <p:panelGrid columns="2" style="alignment-adjust: middle">
+                                <f:facet name="header">Loan Approval</f:facet>
+                                
+                                <h:outputText value="Reference No" />                                
+                                <h:inputText disabled="true" id="referenceno"  value="#{param.referenceno}" />
+                                
+                                <h:outputText value="Name:" />
+                                <h:outputText value="#{param.name}" />
+                                
+                                <h:outputText value="Requested Amount:" />
+                                <h:outputText value="#{param.loanAmount}" />
+                                
+                                <h:outputText value="Loan Type" />
+                                <h:outputText value="#{param.loanType}" />
+                                
+                                <h:outputLabel for="PreApprovedAmount" value="PreApprovedAmount " />
+                                <h:outputText id="preApprovedAmount" value="#{param.approvedAmount}"/>
+                                                                
+                                <h:outputLabel for="Approval Comment" value="Approval Comment" />
+                                <h:outputText id="ApprovedComment" value="#{param.comment}"/>
+                                
+                                <h:outputLabel for="approvedAmount" value="approvedAmount " />
+                                <p:inputText id="approvedAmount" value="#{loanMBean.approvedAmount}" label="AccountName" required="true" style="width:200px; height: 15px"
+                                             requiredMessage="Please enter a valid approvedAmount"/>
+                                
+                                
+                                
+                                <h:outputLabel for="Comment" value="Comments" />
+                                <p:inputText id="comments" value="#{loanMBean.comment}" label="comments" required="true" style="width:200px; height: 15px"
+                                             requiredMessage="Please enter a valid comments"/>
+                                                                                 
+                                <f:facet name="footer">                                    
+                                    <p:commandButton icon="ui-icon-locked" value="Authorize" action="#{loanMBean.authorizeLoan()}" update="messages" >                                        
+                                        <f:param name="referenceno" value="#{param.referenceno}" />                                        
+                                    </p:commandButton>
+                                </f:facet>
+                            </p:panelGrid>
+                            </td>
+                            </tr>
+                        </table>
+                    </h:form>
+                
+                
+    </ui:define>
+</ui:composition>
+

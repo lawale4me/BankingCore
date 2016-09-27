@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+
+    <ui:define name="title">HOME PAGE</ui:define>
+    <ui:define name="content">                             
+
+
+
+        <p:spacer />
+        <h:form id="form">                
+
+        <p:growl id="messages" showDetail="true"/>
+
+            <p:calendar widgetVar="var1" id="dtFrom" value="#{repaymentMBean.startdate}"
+                        pattern="yyyy-MM-dd" mode="popup" showOn="button" >
+                
+            </p:calendar>
+
+            <p:calendar widgetVar="var2" id="dtTo" value="#{repaymentMBean.enddate}"
+                        pattern="yyyy-MM-dd" mode="popup" showOn="button" >
+                
+            </p:calendar>
+            <p:commandButton id="btnFilter" value="Filter" update="dTable"  action="#{repaymentMBean.search()}" ajax="true" />
+
+
+            <p:dataTable var="installment" value="#{repaymentMBean.returnedCheque}" widgetVar="loansTable"
+                         selection="#{repaymentMBean.selectedInstallment}" selectionMode="single" 
+                         scrollable="true" editable="true" id="dTable"
+                         rowKey="#{installment.installmentId}" rows="10"  filteredValue="#{repaymentMBean.filteredInstallments}" >                                                                                                         
+
+                <p:ajax event="rowSelect"  /> 
+                <f:facet name="header">
+                    Check Management
+                </f:facet>
+                <p:ajax event="rowEdit" listener="#{repaymentMBean.onEdit}" update=":form:messages" />                  
+
+
+                <p:column filterBy="#{installment.loanId.referenceno}">
+                    <f:facet name="header">
+                        <h:outputText value="Reference No"  />
+                    </f:facet>
+                    <h:outputText value="#{installment.loanId.referenceno}"   />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Presentation Date" />
+                    </f:facet>
+                    <h:outputText value="#{installment.presentationDate}" >
+                    <f:convertDateTime pattern="MM-dd-yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Amount" />
+                    </f:facet>
+                    <h:outputText value="#{installment.total}" />
+                </p:column>
+
+                <p:column  filterBy="#{installment.chequeNumber}">
+                    <f:facet name="header">
+                        <h:outputText value="Cheque Number" />
+                    </f:facet>
+                    <h:outputText value="#{installment.chequeNumber}" />
+                </p:column>
+
+                <p:column headerText="Cheque Status">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{installment.status}" /></f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu value="#{installment.status}" style="width:100%">
+                                <f:selectItems value="#{repaymentMBean.chequeStatuses}" var="chequestatus" itemLabel="#{chequestatus}" itemValue="#{chequestatus}" />
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>       
+                <p:column headerText="Options" style="width:50px">  
+                        <p:rowEditor />  
+                </p:column>
+            </p:dataTable>       
+        </h:form>
+    </ui:define>
+</ui:composition>

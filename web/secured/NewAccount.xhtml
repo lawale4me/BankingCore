@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+
+    <ui:define name="title">Create New Account</ui:define>                  
+    
+    <ui:define name="content">                            
+        <h:form>
+                        <p:growl id="messages" showDetail="true" />
+                        <table width="40%" align="center" style="margin: 60px 0px 0px 120px">
+                            <tr>
+                                <td id="top" align="center">
+                            <p:panelGrid columns="2" style="alignment-adjust: middle">
+                                <f:facet name="header">New Account Opening</f:facet>
+                                <h:outputLabel for="accountName" value="accountName " />
+                                <p:inputText id="accountName" value="#{newAccount.accountName}" label="AccountName" required="true" style="width:200px; height: 15px"
+                                             requiredMessage="Please enter a valid accountName"/>
+                                
+                                <h:outputLabel for="email" value="Email Address " />
+                                <p:inputText id="email" value="#{newAccount.email}" label="email" required="true" style="width:200px; height: 15px"
+                                             requiredMessage="Please enter a valid email"/>
+                                
+                                <h:outputLabel for="phone" value="phone " />
+                                <p:inputText id="phone" value="#{newAccount.phone}" label="phone" required="true" style="width:200px; height: 15px"
+                                             requiredMessage="Please enter a valid phone"/>
+                                
+                                <h:outputLabel for="userid" value="userid " />
+                                <p:inputText id="userid" value="#{newAccount.userid}" label="userid" required="true" style="width:200px; height: 15px"
+                                             requiredMessage="Please enter a valid userid"/>
+                                
+                                <h:outputLabel for="address" value="address " />
+                                <p:inputText id="address" value="#{newAccount.address}" label="address" required="true" style="width:200px; height: 15px"
+                                             requiredMessage="Please enter a valid address"/>
+
+                                <h:outputLabel for="pin" value="pin : "/>
+                                <p:password id="pin" value="#{newAccount.pin}" label="pin" required="true" style="width:200px; height: 15px"
+                                            requiredMessage="Please enter a valid pin"/>
+                                <f:facet name="footer">
+                                    <p:commandButton icon="ui-icon-locked" value="Register" action="#{newAccount.register()}" update="messages" />
+                                </f:facet>
+                            </p:panelGrid>
+                            </td>
+                            </tr>
+                        </table>
+                    </h:form>
+    </ui:define>
+</ui:composition>

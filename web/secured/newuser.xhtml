@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+
+    <ui:define name="title">Create Admin User</ui:define>                  
+
+    <ui:define name="content">                            
+        <h:form>
+            <p:growl id="messages" showDetail="true" />
+            <table width="40%" align="center" style="margin: 60px 0px 0px 120px">
+                <tr>
+                    <td id="top" align="center">
+                        <p:panelGrid columns="2" style="alignment-adjust: middle">
+                            <f:facet name="header">New Account Opening</f:facet>
+                            <h:outputLabel for="userName" value="UserName " />
+                            <p:inputText id="accountName" value="#{userMBean.username}" label="UserName" required="true" style="width:200px; height: 15px"
+                                         requiredMessage="Please enter a valid userName"/>
+
+                            <h:outputLabel for="email" value="Email Address " />
+                            <p:inputText id="email" value="#{userMBean.email}" label="email" required="true" style="width:200px; height: 15px"
+                                         requiredMessage="Please enter a valid email"/>
+
+                            <h:outputLabel for="phone" value="phone " />
+                            <p:inputText id="phone" value="#{userMBean.phone}" label="phone" required="true" style="width:200px; height: 15px"
+                                         requiredMessage="Please enter a valid phone"/>
+
+                            <h:outputLabel for="role" value="Role " />
+                            <h:selectOneMenu value="#{userMBean.role}" >
+                                <f:selectItem itemValue="#{null}" itemLabel="-- select one --" />
+                                <f:selectItems value="#{userTypeMBean.userTypes}" />
+                            </h:selectOneMenu>
+
+                            <h:outputLabel for="name" value="name " />
+                            <p:inputText id="address" value="#{userMBean.name}" label="name" required="true" style="width:200px; height: 15px"
+                                         requiredMessage="Please enter a valid othernames"/>
+
+                            <h:outputLabel for="password" value="Password : "/>
+                            <p:password id="pin" value="#{userMBean.passwd}" label="password" required="true" style="width:200px; height: 15px"
+                                        requiredMessage="Please enter a valid password" />
+                            <f:facet name="footer">
+                                <p:commandButton icon="ui-icon-locked" value="Register" action="#{userMBean.create()}" update="messages" />
+                            </f:facet>
+                        </p:panelGrid>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </ui:define>
+</ui:composition>

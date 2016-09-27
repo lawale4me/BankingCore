@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                >
+
+    <ui:define name="title">Add Installment</ui:define>
+    <ui:define name="content">                                                          
+
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true"/>
+
+            <p:dataTable id="cars1" var="installment" value="#{installmentMBean.installments}"                  
+                         rowKey="#{installment.installmentId}" rows="15"
+                         paginator="true" rows="10" paginatorPosition="bottom"  
+                         editable="true" style="margin-bottom:20px">
+                <f:facet name="header">
+                    ReferenceNo: #{installmentMBean.referenceNo}
+                </f:facet>
+
+                <p:ajax event="rowEdit" listener="#{installmentMBean.onRowEdit}" update=":form:msgs" />
+                <p:ajax event="rowEditCancel" listener="#{installmentMBean.onRowCancel}" update=":form:msgs" />
+
+                <p:column headerText="Ref Num">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{installment.installmentId}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="modelInput" value="#{installment.installmentId}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Cheque No">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{installment.chequeNumber}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{installment.chequeNumber}" style="width:100%" label="chequeNumber"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                
+                <p:column headerText="presentationDate">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{installment.presentationDate}" /></f:facet>
+                        <f:facet name="input">
+                            <p:calendar id="presentationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{installment.presentationDate}" title="Presentation Date"  showOn="button"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                
+                <p:column headerText="Principal">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{installment.amount}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{installment.amount}" style="width:100%" label="Amount"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                
+                <p:column headerText="Interest">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{installment.interest}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{installment.interest}" style="width:100%" label="Interest"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                
+                <p:column headerText="Total">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{installment.total}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{installment.total} " style="width:100%" label="Total"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                          
+
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable>
+            <p:spacer height="30px;"/>
+            <p:panelGrid columns="2">
+                <f:facet name="header">
+                    <p:outputLabel value="ADD INSTALLMENT"/>    
+                </f:facet>
+                <h:outputLabel for="item" value="Reference No: " />
+                <p:inputText  disabled="true" value="#{installmentMBean.referenceNo}"/>
+                <h:outputLabel for="Cheque No" value="Cheque No " />
+                <p:inputText value="#{installmentMBean.chequeNo}" required="true" />
+                <h:outputLabel for="Amount" value="Amount " />
+                <p:inputText   value="#{installmentMBean.amount}" required="true">                
+                <p:ajax event="keyup" update="total" />
+                </p:inputText>                
+                <h:outputLabel for="Interest" value="Interest " />
+                <p:inputText  value="#{installmentMBean.interest}" required="true">
+                    <p:ajax event="keyup" update="total" />
+                </p:inputText>
+                <h:outputLabel for="Total" value="Total " />
+                <p:inputText id="total" value="#{installmentMBean.amount+installmentMBean.interest}" disabled="true"/>
+                <h:outputLabel for="Presentation Date"  value="Presentation Date" />
+                <p:calendar id="presentationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{installmentMBean.presentationDate}" title="Presentation Date"  showOn="button" required="true"/>
+                <f:facet name="footer">
+                    <p:commandButton value="Add Item" action="#{installmentMBean.addInstallment}" 
+                              update="form"  >
+                        <f:param name="refNum" value="#{installmentMBean.referenceNo}" />
+                    </p:commandButton>
+                </f:facet>
+            </p:panelGrid>                
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+
